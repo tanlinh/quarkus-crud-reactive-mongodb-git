@@ -4,6 +4,7 @@ package boundary;
 import dto.AuthRequest;
 import dto.AuthResponse;
 import entity.User;
+import security.PasswordEncode;
 import security.TokenUtil;
 import serviceimpl.UserServiceImpl;
 
@@ -22,19 +23,21 @@ public class AdminResource {
     @Inject
     UserServiceImpl userService;
 
+    @Inject
+    PasswordEncode passwordEncode;
 
     @PermitAll
     @POST @Path("/login") @Produces(MediaType.APPLICATION_JSON)
     public Response login(AuthRequest authRequest) {
         User u = userService.findByUsername(authRequest.getUsername());
-        if (u != null && u.getPassword().equals(authRequest.getPassword())) {
+        if (u != null && u.getPassword().equals(passwordEncode.encode(authRequest.getPassword())) &&u.getRoles().equals(authRequest.getRoles())) {
             try {
-                return Response.ok(new AuthResponse(TokenUtil.generateToken(u), u.getUserName(), u.getEmail(), u.getRoles())).build();
+                return Response.ok(new AuthResponse(TokenUtil.generateToken(u.getUserName(), u.getRoles()), u.getUserName(), u.getEmail(), u.getRoles())).build();
             } catch (Exception e) {
                 return Response.status(Response.Status.UNAUTHORIZED).build();
             }
         } else {
-            throw new WebApplicationException(Response.status(404).entity("UserName or Password in correct").build());
+            throw new WebApplicationException(Response.status(Response.Status.UNAUTHORIZED).entity("UserName or Password in correct").build());
         }
     }
 }

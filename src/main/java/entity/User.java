@@ -27,7 +27,6 @@ public class User extends ReactivePanacheMongoEntity {
 
     @Roles
     private String role;
-
     public User() {
     }
 

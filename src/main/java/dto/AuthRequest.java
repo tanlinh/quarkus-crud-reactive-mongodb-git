@@ -1,9 +1,12 @@
 package dto;
 
+import dto.enumm.ERole;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+
+import java.util.Set;
 
 /**
  *
@@ -15,5 +18,5 @@ public class  AuthRequest {
 	
 	private String username;
 	private String password;
-
+	private Set<ERole> roles;
 }
