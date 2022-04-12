@@ -12,9 +12,9 @@ import service.UserService;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import javax.ws.rs.NotFoundException;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
+import javax.xml.transform.Result;
 import java.net.URI;
 import java.util.HashSet;
 import java.util.List;
@@ -30,7 +30,9 @@ public class UserServiceImpl implements UserService {
     PasswordEncode passwordEncode;
 
     public Uni<Response> addUser(UserDTO userDTO) {
-
+        User userExist = findByUsername(userDTO.getUserName());
+        if(userExist != null)
+            throw new WebApplicationException(Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Username is exist").build());
         User user = new User();
         user.setEmail(userDTO.getEmail());
         user.setAddress(userDTO.getAddress());
@@ -79,7 +81,11 @@ public class UserServiceImpl implements UserService {
 
     public User findByUsername(String userName) {
 
-        List<User> users = userRepository.find("{userName : ?1}", userName).list();
-        return users.stream().filter(m -> userName.equals(m.getUserName())).findAny().orElse(null);//.orElseThrow(WebApplicationException::new);
+//        List<User> users = userRepository.find("{userName : ?1}", userName).list();
+//        return users.stream().filter(m -> userName.equals(m.getUserName())).findAny().orElse(null);//.orElseThrow(WebApplicationException::new);
+        User user = userRepository.findByName(userName);
+        if(user == null)
+            throw new WebApplicationException(Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Username does not exist").build());
+        return userRepository.findByName(userName);
     }
 }

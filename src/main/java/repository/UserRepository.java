@@ -8,5 +8,11 @@ import javax.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 public class UserRepository implements PanacheMongoRepositoryBase<User, String> {
 
+    public User findByName(String userName){
+        return find("userName", userName).firstResult();
+    }
 
+    public User findByEmail(String email){
+        return find("email", email).firstResult();
+    }
 }

@@ -16,7 +16,7 @@ import java.util.Set;
 @Data
 public class  AuthRequest {
 	
-	private String username;
+	private String userName;
 	private String password;
 	private Set<ERole> roles;
 }

@@ -29,7 +29,7 @@ public class AdminResource {
     @PermitAll
     @POST @Path("/login") @Produces(MediaType.APPLICATION_JSON)
     public Response login(AuthRequest authRequest) {
-        User u = userService.findByUsername(authRequest.getUsername());
+        User u = userService.findByUsername(authRequest.getUserName());
         if (u != null && u.getPassword().equals(passwordEncode.encode(authRequest.getPassword())) &&u.getRoles().equals(authRequest.getRoles())) {
             try {
                 return Response.ok(new AuthResponse(TokenUtil.generateToken(u.getUserName(), u.getRoles()), u.getUserName(), u.getEmail(), u.getRoles())).build();

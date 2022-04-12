@@ -1,14 +1,16 @@
 package boundary;
 
+import boundary.request.PageRequest;
 import dto.UserDTO;
 import entity.User;
+import io.quarkus.mongodb.panache.PanacheMongoRepositoryBase;
+import io.quarkus.panache.common.Page;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 import org.bson.types.ObjectId;
 import repository.UserRepository;
 import serviceimpl.UserServiceImpl;
 
-import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -40,7 +42,7 @@ public class UserResource {
     @Path("/add")
     @Consumes(MediaType.APPLICATION_JSON)
     public Uni<Response> addUser(@Valid UserDTO userDTO) {
-       return userService.addUser(userDTO);
+        return userService.addUser(userDTO);
     }
 
     @Transactional
@@ -64,7 +66,7 @@ public class UserResource {
     @PATCH
     @Path("/update/{id}")
     public Uni<User> update(@PathParam("id") String id, UserDTO userDTO) {
-        return  userService.updateRoleUser(id, userDTO);
+        return userService.updateRoleUser(id, userDTO);
     }
 
     @Transactional
@@ -84,13 +86,16 @@ public class UserResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/search")
     public List<User> search(@QueryParam("name") String name, @QueryParam("email") String email) {
-        return userRepository.find("{name : ?1, email : ?2}", name, email).list();
+        return userRepository.find("{$and: [{name: ?1},{email: ?2}]}", name, email).list();//"{name = ?1, email : ?2}"
     }
 
-//    @GET
-//    @Path("/paging")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public List<User> getAllUserWithPaging(String sortKey, int pageSize, int pageOffset) {
-//        return userRepository.findAll(Sort.by(sortKey)).page(pageOffset,100).stream().collect(Collectors.toList());
-//    }
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/paging")
+    public Response getAll(@BeanParam PageRequest pageRequest) {
+        return Response.ok(((PanacheMongoRepositoryBase) userRepository).findAll()
+                .page(Page.of(pageRequest.getPageNum(), pageRequest.getPageSize()))
+                .list()).build();
+    }
+
 }

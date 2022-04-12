@@ -9,10 +9,10 @@ import javax.ws.rs.QueryParam;
 public class PageRequest {
 
     @QueryParam("pageNum")
-    @DefaultValue("0")
+//    @DefaultValue("0")
     private int pageNum;
 
     @QueryParam("pageSize")
-    @DefaultValue("10")
+//    @DefaultValue("7")
     private int pageSize;
 }

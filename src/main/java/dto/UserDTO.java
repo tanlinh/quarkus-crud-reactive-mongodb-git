@@ -14,8 +14,8 @@ public class UserDTO {
     private String phoneNumber;
     private Boolean status;
 
-    private String userName;
     private String password;
     private Set<ERole> roles;
     private String role;
+    private String userName;
 }
