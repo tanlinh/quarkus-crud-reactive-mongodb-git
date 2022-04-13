@@ -13,7 +13,6 @@ import serviceimpl.UserServiceImpl;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
-import javax.transaction.Transactional;
 import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -37,7 +36,6 @@ public class UserResource {
         return User.streamAll();
     }
 
-    @Transactional
     @POST
     @Path("/add")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -45,7 +43,6 @@ public class UserResource {
         return userService.addUser(userDTO);
     }
 
-    @Transactional
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Uni<Response> createUser(User user) {
@@ -54,7 +51,6 @@ public class UserResource {
                         .entity(user).build());
     }
 
-    @Transactional
     @RolesAllowed("USER")
     @PUT
     @Path("/update/{id}")
@@ -62,14 +58,12 @@ public class UserResource {
         return userService.updateUser(id, userDTO);
     }
 
-    @Transactional
     @PATCH
     @Path("/update/{id}")
     public Uni<User> update(@PathParam("id") String id, UserDTO userDTO) {
         return userService.updateRoleUser(id, userDTO);
     }
 
-    @Transactional
     @PUT
     @Path("/delete/{id}")
     public Uni<User> deleteUser(@PathParam("id") String id) {

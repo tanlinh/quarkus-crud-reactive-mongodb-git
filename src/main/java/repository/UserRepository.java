@@ -12,7 +12,4 @@ public class UserRepository implements PanacheMongoRepositoryBase<User, String> 
         return find("userName", userName).firstResult();
     }
 
-    public User findByEmail(String email){
-        return find("email", email).firstResult();
-    }
 }
