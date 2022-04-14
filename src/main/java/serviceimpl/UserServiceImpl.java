@@ -53,11 +53,11 @@ public class UserServiceImpl implements UserService {
         return userUni.onItem().transform(Unchecked.function(updateUser -> {
             if (updateUser == null)
                 throw new WebApplicationException(Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("User does not exist").build());
-            updateUser.setName(userDTO.getName());
-            updateUser.setAddress(userDTO.getAddress());
-            updateUser.setEmail(userDTO.getEmail());
-            updateUser.setPhoneNumber(userDTO.getPhoneNumber());
-            updateUser.setPassword(passwordEncode.encode(userDTO.getPassword()));
+            updateUser.setName(userDTO.getName() == null ? updateUser.getName() : userDTO.getName());
+            updateUser.setAddress(userDTO.getAddress() == null ? updateUser.getAddress(): userDTO.getAddress());
+            updateUser.setEmail(userDTO.getEmail() == null ? updateUser.getEmail(): userDTO.getEmail());
+            updateUser.setPhoneNumber(userDTO.getPhoneNumber() == null ? updateUser.getPhoneNumber() : userDTO.getPhoneNumber());
+            updateUser.setPassword(userDTO.getPassword() == null ? updateUser.getPassword() : passwordEncode.encode(userDTO.getPassword()));
             return updateUser;
         })).call(updateUser -> updateUser.update());
     }
@@ -87,7 +87,7 @@ public class UserServiceImpl implements UserService {
     public User findByUsername(String userName) {
 
 //        List<User> users = userRepository.find("{userName : ?1}", userName).list();
-//        return users.stream().filter(m -> userName.equals(m.getUserName())).findAny().orElse(null);//.orElseThrow(WebApplicationException::new);
+//        return users.stream().filter(m -> userName.equals(m.getUserName())).findAny().orElse(null);
         User user = userRepository.findByName(userName);
         if (user == null)
             throw new WebApplicationException(Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Username does not exist").build());

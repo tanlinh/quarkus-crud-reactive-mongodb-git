@@ -7,6 +7,7 @@ import io.quarkus.mongodb.panache.PanacheMongoRepositoryBase;
 import io.quarkus.panache.common.Page;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
+import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import repository.UserRepository;
 import serviceimpl.UserServiceImpl;
@@ -20,6 +21,7 @@ import javax.ws.rs.core.Response;
 import java.net.URI;
 import java.util.List;
 
+@Slf4j
 @RolesAllowed("ADMIN")
 @Path("/user")
 public class UserResource {
@@ -51,7 +53,7 @@ public class UserResource {
                         .entity(user).build());
     }
 
-    @RolesAllowed("USER")
+    @RolesAllowed({"USER", "ADMIN"})
     @PUT
     @Path("/update/{id}")
     public Uni<User> updateUser(@PathParam("id") String id, UserDTO userDTO) {
@@ -80,7 +82,7 @@ public class UserResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/search")
     public List<User> search(@QueryParam("name") String name, @QueryParam("email") String email) {
-        return userRepository.find("{$and: [{name: ?1},{email: ?2}]}", name, email).list();//"{name = ?1, email : ?2}"
+            return userRepository.find("{$and: [{name: ?1},{email: ?2}]}", name, email).list();//"{name = ?1, email : ?2}"
     }
 
     @GET
