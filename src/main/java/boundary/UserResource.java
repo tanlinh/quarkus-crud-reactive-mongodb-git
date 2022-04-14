@@ -22,7 +22,7 @@ import java.net.URI;
 import java.util.List;
 
 @Slf4j
-@RolesAllowed("ADMIN")
+//@RolesAllowed("ADMIN")
 @Path("/user")
 public class UserResource {
 
