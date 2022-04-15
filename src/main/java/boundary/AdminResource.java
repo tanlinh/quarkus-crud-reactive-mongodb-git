@@ -4,6 +4,7 @@ package boundary;
 import dto.AuthRequest;
 import dto.AuthResponse;
 import entity.User;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import security.PasswordEncode;
 import security.TokenUtil;
 import serviceimpl.UserServiceImpl;

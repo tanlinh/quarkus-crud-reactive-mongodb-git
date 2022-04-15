@@ -22,7 +22,7 @@ import java.net.URI;
 import java.util.List;
 
 @Slf4j
-//@RolesAllowed("ADMIN")
+@RolesAllowed("ADMIN")
 @Path("/user")
 public class UserResource {
 
@@ -82,7 +82,7 @@ public class UserResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/search")
     public List<User> search(@QueryParam("name") String name, @QueryParam("email") String email) {
-            return userRepository.find("{$and: [{name: ?1},{email: ?2}]}", name, email).list();//"{name = ?1, email : ?2}"
+            return userRepository.find("{$or: [{name : {$regex : ?1}},{email : ?2}]}", name, email).list();
     }
 
     @GET

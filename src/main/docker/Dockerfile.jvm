@@ -24,9 +24,7 @@
 FROM registry.access.redhat.com/ubi8/ubi-minimal:8.3
 #FROM registry.access.redhat.com/ubi8/openjdk-11:1.11
 
-#FROM mongo
 #COPY elements.json /elements.json
-#CMD mongoimport --host mongo --db mendeleev --collection elements --drop --file /elements.json --jsonArray
 
 
 ARG JAVA_PACKAGE=java-11-openjdk-headless

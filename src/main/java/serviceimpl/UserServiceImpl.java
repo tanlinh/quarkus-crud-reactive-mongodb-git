@@ -86,8 +86,6 @@ public class UserServiceImpl implements UserService {
 
     public User findByUsername(String userName) {
 
-//        List<User> users = userRepository.find("{userName : ?1}", userName).list();
-//        return users.stream().filter(m -> userName.equals(m.getUserName())).findAny().orElse(null);
         User user = userRepository.findByName(userName);
         if (user == null)
             throw new WebApplicationException(Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Username does not exist").build());
