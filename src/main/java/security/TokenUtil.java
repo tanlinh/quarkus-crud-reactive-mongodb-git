@@ -61,7 +61,7 @@ public class TokenUtil {
 
     public static int currentTimeInSecs() {
         long currentTimeMS = System.currentTimeMillis();
-        return (int) (currentTimeMS / 10);
+        return (int) (currentTimeMS / 1000);
     }
 
 

@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
         }
         user.setRoles(groups);
         user.setPassword(passwordEncode.encode(userDTO.getPassword()));
-        return user.persist().map(m -> Response.created(URI.create("/user/")).entity(user).build());
+        return user.persist().map(m -> Response.status(200).build()); //created(URI.create("/user/")).status(200).build());
     }
 
     public Uni<User> updateUser(String id, UserDTO userDTO) {

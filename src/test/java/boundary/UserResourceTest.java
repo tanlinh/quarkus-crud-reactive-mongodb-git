@@ -3,17 +3,16 @@ package boundary;
 import dto.UserDTO;
 import dto.enumm.ERole;
 import entity.User;
-import io.quarkus.mongodb.panache.reactive.ReactivePanacheMongoEntityBase;
+import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.mockito.InjectMock;
 import io.quarkus.test.security.TestSecurity;
-import io.smallrye.common.constraint.Assert;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 import io.smallrye.mutiny.helpers.test.AssertSubscriber;
 import io.smallrye.mutiny.helpers.test.UniAssertSubscriber;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.*;
 import org.mockito.Mockito;
 import repository.UserRepository;
 import serviceimpl.UserServiceImpl;
@@ -23,7 +22,15 @@ import javax.ws.rs.core.Response;
 import java.util.HashSet;
 import java.util.Set;
 
+import static io.restassured.RestAssured.given;
+import static javax.ws.rs.core.HttpHeaders.ACCEPT;
+import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
+import static javax.ws.rs.core.Response.Status.OK;
+
+@Slf4j
 @QuarkusTest
+//@TestHTTPEndpoint(UserResource.class)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class UserResourceTest {
 
     @InjectMock
@@ -39,15 +46,36 @@ public class UserResourceTest {
 
     @BeforeEach
     void setup() {
+        userResource = Mockito.mock(UserResource.class);
+        user = Mockito.mock(User.class);
         this.user = new User();
         user.setName("linhvippro");
         user.setUserName("linhvippro00");
         userService = Mockito.mock(UserServiceImpl.class);
-//        reactivePanacheMongoEntityBaseUni = User.findById(new ObjectId("624e495505042b1dfb7aea73"));
-//        reactivePanacheMongoEntityBaseUni.onItem().transform(a-> a= user);
     }
 
-    @Test()
+    @Test
+    @TestSecurity(user = "l123", roles = {"ADMIN", "USER"})
+    void test() {
+        given()
+                .header(ACCEPT, APPLICATION_JSON)
+                .when().get("/user")
+                .then()
+                .statusCode(OK.getStatusCode());
+    }
+
+
+    @Test
+    @TestSecurity(user = "test", roles = "ADMIN")
+    public void testSearch() {
+        given()
+                .header(ACCEPT, APPLICATION_JSON)
+                .when().get("/user/search?email=tes1t@gmail.com")
+                .then()
+                .statusCode(500);
+    }
+
+    @Test
     @TestSecurity(user = "linhvippro", roles = "ADMIN")
     void getAll() {
         Multi<User> userMulti = userResource.getAllUser();
@@ -72,16 +100,19 @@ public class UserResourceTest {
         groups.add(ERole.USER);
         userDTO.setRoles(groups);
         Uni<Response> responseUser = userResource.addUser(userDTO);
-        responseUser.onItem().transform(Assert::assertNotNull);
+        UniAssertSubscriber<Response> subscriber = responseUser
+                .subscribe().withSubscriber(UniAssertSubscriber.create());
+        subscriber.assertSubscribed().assertCompleted();
     }
 
     @Test
     @TestSecurity(user = "linhvippro", roles = "ADMIN")
     void delete() {
-        Uni<Boolean> booleanUni = userResource.delete("624ffc456ad6787062128435");
+        Uni<Boolean> booleanUni = userResource.delete("6258d29a02604d69f5150b34");
         UniAssertSubscriber<Boolean> subscriber = booleanUni
                 .subscribe().withSubscriber(UniAssertSubscriber.create());
         subscriber.assertSubscribed();
+        booleanUni.subscribe().with(a-> Assertions.assertEquals(false, a.booleanValue()));
     }
 
     @Test
@@ -96,7 +127,7 @@ public class UserResourceTest {
         Uni<User> userUni = userResource.updateUser("624e495505042b1dfb7aea73", userDTO);
         UniAssertSubscriber<User> subscriber = userUni
                 .subscribe().withSubscriber(UniAssertSubscriber.create());
-        subscriber.assertSubscribed();
+        subscriber.assertSubscribed().assertCompleted();
     }
 
 }

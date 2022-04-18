@@ -18,11 +18,8 @@ public class User extends ReactivePanacheMongoEntity {
     private String phoneNumber;
     private Boolean status;
 
-    @Username
     private String userName;
-    @Password
     private String password;
-    @Roles
     private Set<ERole> roles;
 
     public User() {

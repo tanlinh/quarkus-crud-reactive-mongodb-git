@@ -82,7 +82,7 @@ public class UserResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/search")
     public List<User> search(@QueryParam("name") String name, @QueryParam("email") String email) {
-            return userRepository.find("{$or: [{name : {$regex : ?1}},{email : ?2}]}", name, email).list();
+            return userRepository.find("{$or: [{name : ?1},{email : ?2}]}", name, email).list();
     }
 
     @GET
