@@ -1,12 +1,30 @@
 version: "3.7"
-services:
-  mongodb:
-    image : mongo
-    container_name: mongodb
-    volumes:
-      - /home/barry/mongodb/database:/data/db
-    environment:
-        MONGO_INITDB_DATABASE: management
-    ports:
-      - "27017:27017"
-    restart: always
+  services:
+    quarkus-service:
+      build:
+        context: .
+        dockerfile: src/main/docker/Dockerfile.native
+        image: lreimer/hands-on-quarkus:native
+        mem_limit: 128m
+        environment:
+          - QUARKUS_DATASOURCE_URL=mongodb://localhost:27017
+        ports:
+          - "27017:27017"  # the HTTP endpoint
+        depends_on:
+          mongodb:
+            condition: service_healthy
+        networks:
+          - quarkus
+
+
+    mongodb:
+      image : mongo
+      container_name: mongodb
+      volumes:
+        - /home/barry/mongodb/database:/data/db
+      environment:
+          MONGO_INITDB_DATABASE: management
+      ports:
+        - "27017:27017"
+      restart: always
+

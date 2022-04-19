@@ -81,8 +81,8 @@ public class UserResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/search")
-    public List<User> search(@QueryParam("name") String name, @QueryParam("email") String email) {
-            return userRepository.find("{$or: [{name : ?1},{email : ?2}]}", name, email).list();
+    public List<User> search(@DefaultValue("") @QueryParam("name") String name, @DefaultValue("") @QueryParam("email") String email) {
+        return userRepository.find("{$and: [{name : {'$regex' : ?1, '$options' : 'i'}}, {email : {'$regex' : ?2, '$options' : 'i'} }]}", name, email).list();
     }
 
     @GET

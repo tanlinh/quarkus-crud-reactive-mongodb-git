@@ -3,9 +3,7 @@ package boundary;
 import dto.UserDTO;
 import dto.enumm.ERole;
 import entity.User;
-import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
-import io.quarkus.test.junit.mockito.InjectMock;
 import io.quarkus.test.security.TestSecurity;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
@@ -14,11 +12,9 @@ import io.smallrye.mutiny.helpers.test.UniAssertSubscriber;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.*;
 import org.mockito.Mockito;
-import repository.UserRepository;
 import serviceimpl.UserServiceImpl;
 
 import javax.inject.Inject;
-import javax.ws.rs.core.Response;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -29,12 +25,12 @@ import static javax.ws.rs.core.Response.Status.OK;
 
 @Slf4j
 @QuarkusTest
-//@TestHTTPEndpoint(UserResource.class)
+@Tag("integration")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class UserResourceTest {
 
-    @InjectMock
-    UserRepository userRepository;
+//    @InjectMock
+//    UserRepository userRepository;
 
     @Inject
     UserServiceImpl userService;
@@ -51,6 +47,7 @@ public class UserResourceTest {
         this.user = new User();
         user.setName("linhvippro");
         user.setUserName("linhvippro00");
+        user.setStatus(true);
         userService = Mockito.mock(UserServiceImpl.class);
     }
 
@@ -64,29 +61,32 @@ public class UserResourceTest {
                 .statusCode(OK.getStatusCode());
     }
 
-
     @Test
     @TestSecurity(user = "test", roles = "ADMIN")
-    public void testSearch() {
+    public void testAdd() {
+        UserDTO userDTO = new UserDTO();
+        userDTO.setAddress("aa");
+        userDTO.setEmail("aaaaa");
+        userDTO.setName("aaa");
+        userDTO.setPassword("123");
+        userDTO.setUserName("linh2a");
+        userDTO.setPhoneNumber("012312312");
+        userDTO.setStatus(true);
+        Set<ERole> groups = new HashSet<>();
+        groups.add(ERole.ADMIN);
+        groups.add(ERole.USER);
+        userDTO.setRoles(groups);
         given()
-                .header(ACCEPT, APPLICATION_JSON)
-                .when().get("/user/search?email=tes1t@gmail.com")
+                .contentType(APPLICATION_JSON)
+                .body(userDTO)
+                .when().post("/user/add")
                 .then()
                 .statusCode(500);
     }
 
     @Test
-    @TestSecurity(user = "linhvippro", roles = "ADMIN")
-    void getAll() {
-        Multi<User> userMulti = userResource.getAllUser();
-        AssertSubscriber<User> subscriber = userMulti.subscribe().withSubscriber(AssertSubscriber.create());
-        subscriber.onComplete();
-    }
-
-    @Test
-    @TestSecurity(user = "linhvippro", roles = "ADMIN")
-    void addUser() {
-        Mockito.when(userRepository.findByName("linhvippro00")).thenReturn(user);
+    @TestSecurity(user = "test", roles = "ADMIN")
+    public void testUpdate() {
         UserDTO userDTO = new UserDTO();
         userDTO.setAddress("aa");
         userDTO.setEmail("aaaaa");
@@ -99,10 +99,55 @@ public class UserResourceTest {
         groups.add(ERole.ADMIN);
         groups.add(ERole.USER);
         userDTO.setRoles(groups);
-        Uni<Response> responseUser = userResource.addUser(userDTO);
-        UniAssertSubscriber<Response> subscriber = responseUser
-                .subscribe().withSubscriber(UniAssertSubscriber.create());
-        subscriber.assertSubscribed().assertCompleted();
+        given()
+                .contentType(APPLICATION_JSON)
+                .pathParams("id", "6257fa78856db41419238a78").body(userDTO)
+                .when().put("/user/update/{id}")
+                .then()
+                .statusCode(200);
+    }
+
+    @Test
+    @TestSecurity(user = "test", roles = "ADMIN")
+    public void testDelete() {
+        given()
+                .contentType(APPLICATION_JSON)
+                .pathParams("id", "6257fa78856db41419238a78")
+                .when().put("/user/delete/{id}")
+                .then()
+                .statusCode(200);
+    }
+
+    @Test
+    @TestSecurity(user = "test", roles = "ADMIN")
+    public void testSearch() {
+        given()
+                .contentType(APPLICATION_JSON)
+                .queryParam("email", "aaaaa")
+                .queryParam("name", "aaa")
+                .when().get("/user/search")
+                .then()
+                .statusCode(200);
+    }
+
+    @Test
+    @TestSecurity(user = "a123", roles = {"ADMIN"} )
+    public void testPaging() {
+        given()
+                .contentType(APPLICATION_JSON)
+                .queryParam("pageNum", "0")
+                .queryParam("pageSize", "10")
+                .when().get("/user/paging")
+                .then()
+                .statusCode(200);
+    }
+
+    @Test
+    @TestSecurity(user = "linhvippro", roles = "ADMIN")
+    void getAll() {
+        Multi<User> userMulti = userResource.getAllUser();
+        AssertSubscriber<User> subscriber = userMulti.subscribe().withSubscriber(AssertSubscriber.create());
+        subscriber.onComplete();
     }
 
     @Test
