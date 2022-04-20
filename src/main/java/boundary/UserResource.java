@@ -87,6 +87,13 @@ public class UserResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @Path("/find")
+    public List<User> findUser(@QueryParam("province") String province) {
+        return userService.findUserWith(province);
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
     @Path("/paging")
     public Response getAll(@BeanParam PageRequest pageRequest) {
         return Response.ok(((PanacheMongoRepositoryBase) userRepository).findAll()

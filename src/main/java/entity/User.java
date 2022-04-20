@@ -15,6 +15,7 @@ public class User extends ReactivePanacheMongoEntity {
     private String name;
     private String email;
     private String address;
+    private Set<Address> addresses;
     private String phoneNumber;
     private Boolean status;
 

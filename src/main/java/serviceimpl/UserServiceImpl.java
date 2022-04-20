@@ -1,12 +1,15 @@
 package serviceimpl;
 
 
+import dto.AddressDTO;
 import dto.UserDTO;
 import dto.enumm.ERole;
+import entity.Address;
 import entity.User;
 import io.smallrye.mutiny.Uni;
 import io.smallrye.mutiny.unchecked.Unchecked;
 import org.bson.types.ObjectId;
+import repository.AddressRepository;
 import repository.UserRepository;
 import security.PasswordEncode;
 import service.UserService;
@@ -16,6 +19,7 @@ import javax.inject.Inject;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @RequestScoped
@@ -31,7 +35,12 @@ public class UserServiceImpl implements UserService {
         User userExist = userRepository.findByName(userDTO.getUserName());
         if (userExist != null)
             throw new WebApplicationException(Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Username is exist").build());
+        Set<Address> addressDTOS = new HashSet<>();
+        for (Address address : userDTO.getAddresses()) {
+            addressDTOS.add(address);
+        }
         User user = new User();
+        user.setAddresses(addressDTOS);
         user.setEmail(userDTO.getEmail());
         user.setAddress(userDTO.getAddress());
         user.setName(userDTO.getName());
@@ -49,14 +58,19 @@ public class UserServiceImpl implements UserService {
 
     public Uni<User> updateUser(String id, UserDTO userDTO) {
         Uni<User> userUni = User.findById(new ObjectId(id));
+        Set<Address> addressDTOS = new HashSet<>();
         return userUni.onItem().transform(Unchecked.function(updateUser -> {
             if (updateUser == null)
                 throw new WebApplicationException(Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("User does not exist").build());
             updateUser.setName(userDTO.getName() == null ? updateUser.getName() : userDTO.getName());
-            updateUser.setAddress(userDTO.getAddress() == null ? updateUser.getAddress(): userDTO.getAddress());
-            updateUser.setEmail(userDTO.getEmail() == null ? updateUser.getEmail(): userDTO.getEmail());
+            updateUser.setAddress(userDTO.getAddress() == null ? updateUser.getAddress() : userDTO.getAddress());
+            updateUser.setEmail(userDTO.getEmail() == null ? updateUser.getEmail() : userDTO.getEmail());
             updateUser.setPhoneNumber(userDTO.getPhoneNumber() == null ? updateUser.getPhoneNumber() : userDTO.getPhoneNumber());
             updateUser.setPassword(userDTO.getPassword() == null ? updateUser.getPassword() : passwordEncode.encode(userDTO.getPassword()));
+            for (Address address : userDTO.getAddresses()) {
+                addressDTOS.add(address);
+            }
+            updateUser.setAddresses(updateUser.getAddresses() == null ? updateUser.getAddresses() : addressDTOS);
             return updateUser;
         })).call(updateUser -> updateUser.update());
     }
@@ -89,5 +103,12 @@ public class UserServiceImpl implements UserService {
         if (user == null)
             throw new WebApplicationException(Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Username does not exist").build());
         return userRepository.findByName(userName);
+    }
+
+    public List<User> findUserWith(String province) {
+        List<User> users = userRepository.findUserWithAddress(province);
+        if (users.isEmpty())
+            throw new WebApplicationException(Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("User not found").build());
+        return users;
     }
 }

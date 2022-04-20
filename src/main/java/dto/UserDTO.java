@@ -1,6 +1,7 @@
 package dto;
 
 import dto.enumm.ERole;
+import entity.Address;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
@@ -20,4 +21,5 @@ public class UserDTO {
     private String userName;
     @NotBlank(message="username may not be blank")
     private String name;
+    private Set<Address> addresses;
 }
