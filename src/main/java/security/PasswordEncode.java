@@ -18,19 +18,20 @@ public class PasswordEncode {
 
     @Inject
     @ConfigProperty(name = "quarkusjwt.password.iteration")
-    private Integer iteration;
+    Integer iteration;
     @Inject
     @ConfigProperty(name = "quarkusjwt.password.secret")
-    private String secret;
+    String secret;
     @Inject
     @ConfigProperty(name = "quarkusjwt.password.keylength")
-    private Integer keylength;
-
-    private static final String KEYFACTORY = "PBKDF2WithHmacSHA512";
+    Integer keylength;
+    @Inject
+    @ConfigProperty(name = "quarkusjwt.password.keyFactory")
+    String keyFactory;
 
     public String encode(CharSequence cs) {
         try {
-            byte[] result = SecretKeyFactory.getInstance(KEYFACTORY)
+            byte[] result = SecretKeyFactory.getInstance(keyFactory)
                     .generateSecret(new PBEKeySpec(cs.toString().toCharArray(), secret.getBytes(), iteration, keylength))
                     .getEncoded();
               return Base64.getEncoder().encodeToString(result);

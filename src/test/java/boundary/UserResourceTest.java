@@ -2,6 +2,7 @@ package boundary;
 
 import dto.UserDTO;
 import dto.enumm.ERole;
+import entity.Address;
 import entity.User;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.security.TestSecurity;
@@ -85,23 +86,30 @@ public class UserResourceTest {
     }
 
     @Test
-    @TestSecurity(user = "test", roles = "ADMIN")
+    @TestSecurity(user = "test", roles = {"ADMIN", "USER"})
     public void testUpdate() {
         UserDTO userDTO = new UserDTO();
         userDTO.setAddress("aa");
         userDTO.setEmail("aaaaa");
         userDTO.setName("aaa");
         userDTO.setPassword("123");
-        userDTO.setUserName("linhvippro");
+        userDTO.setUserName("linhvipp1ro");
         userDTO.setPhoneNumber("012312312");
         userDTO.setStatus(true);
         Set<ERole> groups = new HashSet<>();
         groups.add(ERole.ADMIN);
         groups.add(ERole.USER);
         userDTO.setRoles(groups);
+        Address address = new Address();
+        address.setDistrict("adsdasd");
+        address.setProvince("asdasdas");
+        address.setTown("Asdasds");
+        Set<Address> addresses = new HashSet<>();
+        addresses.add(address);
+        userDTO.setAddresses(addresses);
         given()
                 .contentType(APPLICATION_JSON)
-                .pathParams("id", "6257fa78856db41419238a78").body(userDTO)
+                .pathParams("id", "625ce893cef88a5881b6d609").body(userDTO)
                 .when().put("/user/update/{id}")
                 .then()
                 .statusCode(200);
@@ -112,7 +120,7 @@ public class UserResourceTest {
     public void testDelete() {
         given()
                 .contentType(APPLICATION_JSON)
-                .pathParams("id", "6257fa78856db41419238a78")
+                .pathParams("id", "625d097171c77c0ad78f29ee")
                 .when().put("/user/delete/{id}")
                 .then()
                 .statusCode(200);

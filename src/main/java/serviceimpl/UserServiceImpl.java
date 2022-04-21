@@ -1,7 +1,6 @@
 package serviceimpl;
 
 
-import dto.AddressDTO;
 import dto.UserDTO;
 import dto.enumm.ERole;
 import entity.Address;
@@ -9,11 +8,11 @@ import entity.User;
 import io.smallrye.mutiny.Uni;
 import io.smallrye.mutiny.unchecked.Unchecked;
 import org.bson.types.ObjectId;
-import repository.AddressRepository;
 import repository.UserRepository;
 import security.PasswordEncode;
 import service.UserService;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.WebApplicationException;
@@ -22,7 +21,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@RequestScoped
+@ApplicationScoped
 public class UserServiceImpl implements UserService {
 
     @Inject
@@ -32,7 +31,7 @@ public class UserServiceImpl implements UserService {
     PasswordEncode passwordEncode;
 
     public Uni<Response> addUser(UserDTO userDTO) {
-        User userExist = userRepository.findByName(userDTO.getUserName());
+        User userExist = userRepository.findByUsername(userDTO.getUserName());
         if (userExist != null)
             throw new WebApplicationException(Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Username is exist").build());
         Set<Address> addressDTOS = new HashSet<>();
@@ -49,6 +48,8 @@ public class UserServiceImpl implements UserService {
         user.setUserName(userDTO.getUserName());
         Set<ERole> groups = new HashSet<>();
         for (ERole role : userDTO.getRoles()) {
+            if (role.equals(ERole.ADMIN))
+                throw new WebApplicationException(Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Cannot add user with role admin").build());
             groups.add(role);
         }
         user.setRoles(groups);
@@ -99,16 +100,23 @@ public class UserServiceImpl implements UserService {
 
     public User findByUsername(String userName) {
 
-        User user = userRepository.findByName(userName);
+        User user = userRepository.findByUsername(userName);
         if (user == null)
             throw new WebApplicationException(Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Username does not exist").build());
-        return userRepository.findByName(userName);
+        return userRepository.findByUsername(userName);
     }
 
-    public List<User> findUserWith(String province) {
-        List<User> users = userRepository.findUserWithAddress(province);
+    public List<User> findByProvince(String province) {
+        List<User> users = userRepository.findByProvince(province);
         if (users.isEmpty())
             throw new WebApplicationException(Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("User not found").build());
         return users;
+    }
+
+    public Set<Address> findListAddress(String userName) {
+        User user = userRepository.findByUsername(userName);
+        if (user == null)
+            throw new WebApplicationException(Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Username does not exist").build());
+        return user.getAddresses();
     }
 }

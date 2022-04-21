@@ -2,6 +2,7 @@ package boundary;
 
 import boundary.request.PageRequest;
 import dto.UserDTO;
+import entity.Address;
 import entity.User;
 import io.quarkus.mongodb.panache.PanacheMongoRepositoryBase;
 import io.quarkus.panache.common.Page;
@@ -20,6 +21,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.net.URI;
 import java.util.List;
+import java.util.Set;
 
 @Slf4j
 @RolesAllowed("ADMIN")
@@ -56,12 +58,12 @@ public class UserResource {
     @RolesAllowed({"USER", "ADMIN"})
     @PUT
     @Path("/update/{id}")
-    public Uni<User> updateUser(@PathParam("id") String id, UserDTO userDTO) {
+    public Uni<User> updateUser(@PathParam("id") String id, @Valid UserDTO userDTO) {
         return userService.updateUser(id, userDTO);
     }
 
     @PATCH
-    @Path("/update/{id}")
+    @Path("/update-role/{id}")
     public Uni<User> update(@PathParam("id") String id, UserDTO userDTO) {
         return userService.updateRoleUser(id, userDTO);
     }
@@ -87,9 +89,16 @@ public class UserResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/find")
-    public List<User> findUser(@QueryParam("province") String province) {
-        return userService.findUserWith(province);
+    @Path("/find-embedded")
+    public List<User> findByProvince(@QueryParam("province") String province) {
+        return userService.findByProvince(province);
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/find-address")
+    public Set<Address> findListAddress(@QueryParam("userName") String userName) {
+        return userService.findListAddress(userName);
     }
 
     @GET

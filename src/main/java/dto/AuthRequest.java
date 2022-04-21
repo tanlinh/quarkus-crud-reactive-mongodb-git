@@ -8,10 +8,6 @@ import lombok.ToString;
 
 import java.util.Set;
 
-/**
- *
- * @author ard333
- */
 @NoArgsConstructor @AllArgsConstructor @ToString
 @Data
 public class  AuthRequest {

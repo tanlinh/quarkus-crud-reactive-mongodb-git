@@ -1,25 +1,27 @@
 version: "3.7"
 services:
-  app:
-      image: quarkus
-      container_name: stack
-      ports:
-        - "8080:8080"
-      environment:
-          MONGO_INITDB_DATABASE: management
-      depends_on:
-        - mongodb
 
   mongodb:
-      image : mongo
-      container_name: mongodb
-      volumes:
-        - /home/barry/mongodb/database:/data/db
-      environment:
-          MONGO_INITDB_DATABASE: management
-      ports:
-        - "27017:27017"
-      restart: always
+    image: mongo
+    container_name: mongodb
+    volumes:
+      - /home/barry/mongodb/database:/data/db
+    environment:
+      MONGO_INITDB_DATABASE: management
+    ports:
+      - "27017:27017"
+    restart: always
+
+  app:
+    image: quarkus
+    container_name: quarkus
+    ports:
+      - "8080:8080"
+    environment:
+      MONGO_INITDB_DATABASE: management
+    depends_on:
+      - mongodb
+
 
 
 
