@@ -10,15 +10,22 @@ import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
+import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
+import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import repository.UserRepository;
+import service.ExcelService;
 import serviceimpl.UserServiceImpl;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.ws.rs.*;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.io.ByteArrayInputStream;
 import java.net.URI;
 import java.util.List;
 import java.util.Set;
@@ -27,6 +34,11 @@ import java.util.Set;
 @RolesAllowed("ADMIN")
 @Path("/user")
 public class UserResource {
+    private static final String FILE_PATH = "D:\\excel-file.xls";
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserResource.class);
+
+    @Inject
+    ExcelService excelService;
 
     @Inject
     UserServiceImpl userService;
@@ -64,7 +76,7 @@ public class UserResource {
 
     @PATCH
     @Path("/update-role/{id}")
-    public Uni<User> update(@PathParam("id") String id, UserDTO userDTO) {
+    public Uni<User> updateRole(@PathParam("id") String id, UserDTO userDTO) {
         return userService.updateRoleUser(id, userDTO);
     }
 
@@ -76,14 +88,14 @@ public class UserResource {
 
     @DELETE
     @Path("/{id}")
-    public Uni<Boolean> delete(@PathParam("id") String id) {
+    public Uni<Boolean> deleteAlways(@PathParam("id") String id) {
         return User.deleteById(new ObjectId(id));
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/search")
-    public List<User> search(@DefaultValue("") @QueryParam("name") String name, @DefaultValue("") @QueryParam("email") String email) {
+    public List<User> searchByNameAndEmail(@DefaultValue("") @QueryParam("name") String name, @DefaultValue("") @QueryParam("email") String email) {
         return userRepository.find("{$and: [{name : {'$regex' : ?1, '$options' : 'i'}}, {email : {'$regex' : ?2, '$options' : 'i'} }]}", name, email).list();
     }
 
@@ -104,10 +116,27 @@ public class UserResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/paging")
-    public Response getAll(@BeanParam PageRequest pageRequest) {
+    public Response getAllByPaging(@BeanParam PageRequest pageRequest) {
         return Response.ok(((PanacheMongoRepositoryBase) userRepository).findAll()
                 .page(Page.of(pageRequest.getPageNum(), pageRequest.getPageSize()))
                 .list()).build();
     }
 
+    @POST
+    @Path("/upload-file")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response sendMultipartUpLoadFile(@MultipartForm MultipartFormDataInput data) {
+        return Response.ok().build();
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/download-file")
+    public Response downloadFileExcel() {
+        LOGGER.debug("Check download file excel of list User");
+        String filename = "UserList.xlsx";
+        ByteArrayInputStream file = excelService.load();
+        return Response.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename).entity(file).build();
+    }
 }

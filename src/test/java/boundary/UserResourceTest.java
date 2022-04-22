@@ -161,7 +161,7 @@ public class UserResourceTest {
     @Test
     @TestSecurity(user = "linhvippro", roles = "ADMIN")
     void delete() {
-        Uni<Boolean> booleanUni = userResource.delete("6258d29a02604d69f5150b34");
+        Uni<Boolean> booleanUni = userResource.deleteAlways("6258d29a02604d69f5150b34");
         UniAssertSubscriber<Boolean> subscriber = booleanUni
                 .subscribe().withSubscriber(UniAssertSubscriber.create());
         subscriber.assertSubscribed();

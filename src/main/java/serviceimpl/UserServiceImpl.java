@@ -12,16 +12,17 @@ import repository.UserRepository;
 import security.PasswordEncode;
 import service.UserService;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
+import java.net.URI;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@ApplicationScoped
+
+@RequestScoped
 public class UserServiceImpl implements UserService {
 
     @Inject
@@ -54,7 +55,7 @@ public class UserServiceImpl implements UserService {
         }
         user.setRoles(groups);
         user.setPassword(passwordEncode.encode(userDTO.getPassword()));
-        return user.persist().map(m -> Response.status(200).build()); //created(URI.create("/user/")).status(200).build());
+        return user.persist().map(m -> Response.created(URI.create("/user/")).entity(userDTO).status(200).build());
     }
 
     public Uni<User> updateUser(String id, UserDTO userDTO) {
