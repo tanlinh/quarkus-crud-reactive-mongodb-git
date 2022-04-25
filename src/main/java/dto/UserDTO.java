@@ -22,4 +22,5 @@ public class UserDTO {
     @NotBlank(message="username may not be blank")
     private String name;
     private Set<Address> addresses;
+    private String file;
 }

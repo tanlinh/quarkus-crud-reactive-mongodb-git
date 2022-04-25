@@ -1,0 +1,530 @@
+[{
+  "_id": {
+    "$oid": "624e495505042b1dfb7aea73"
+  },
+  "address": "G1231, hcm",
+  "email": "l23gmail.com.com",
+  "name": "t123h1",
+  "password": "$2a$10$VwKsBlJw7sx/S/39mt6NT.gXE55alERB/vS3LwJLjZg5u3MyzwV/y",
+  "phoneNumber": "11111111111",
+  "roles": [
+    "USER"
+  ],
+  "status": true
+},{
+  "_id": {
+    "$oid": "624e51746bd0bb1d34d8e77f"
+  },
+  "address": "Go vap1, hcm",
+  "email": "1",
+  "name": "tanlinh1",
+  "password": "$2a$10$voEEdi27l5wclmSd8IvF3OgmZurCTOwM7bJK2MJDEkhprHwEF2tZW",
+  "phoneNumber": "11111111111",
+  "roles": [
+    "USER"
+  ],
+  "status": false
+},{
+  "_id": {
+    "$oid": "624e6d47d1ef9556d07a5886"
+  },
+  "address": "Go vap1, hcm",
+  "email": "linh@gmail1.com",
+  "name": "tanlinh1",
+  "password": "$2a$10$GhUltPnVg5oHwclJSIesYuTnWV6kk3lytsldPhiC2.veVth5ukQSe",
+  "phoneNumber": "11111111111",
+  "roles": [
+    "USER"
+  ],
+  "status": true
+},{
+  "_id": {
+    "$oid": "624e6e23824ebc0db3f95775"
+  },
+  "address": "Go vap1, hcm",
+  "email": "linh@gmail1.com",
+  "name": "tanlinh1",
+  "password": "$2a$10$xNa3AlxjVSdXB2iCbGi8D.rqyO84c8tXFvy7htLudXNn9SqZaGgvK",
+  "phoneNumber": "11111111111",
+  "roles": [
+    "USER"
+  ],
+  "status": true
+},{
+  "_id": {
+    "$oid": "624e90816615d372a2ef115e"
+  },
+  "address": "Go vap1, hcm",
+  "email": "linh@gmail1.com",
+  "name": "tanlinh1",
+  "password": "$2a$10$vEQJM.dg8W8t1OLupdR9IeDNybpM44KviL.I6GvlF8HL8JeRhGxTG",
+  "phoneNumber": "11111111111",
+  "role": "USER",
+  "roles": [
+    "USER"
+  ],
+  "status": true,
+  "userName": "linh123"
+},{
+  "_id": {
+    "$oid": "624e99086081d47ecf7aa372"
+  },
+  "address": "Go vap1, hcm",
+  "email": "linh@gmail1.com",
+  "name": "tanlinh1",
+  "password": "1234567",
+  "phoneNumber": "11111111111",
+  "role": "USER",
+  "roles": [
+    "USER"
+  ],
+  "status": true,
+  "userName": "linh12"
+},{
+  "_id": {
+    "$oid": "624fa9fdb574582de15a7a06"
+  },
+  "address": "Go vap1, hcm",
+  "email": "test1@gmail1.com",
+  "name": "t53",
+  "password": "$2a$10$deQrUvhO4nQo6uHolhnQd.hPyr7ZIjBIJUjZFapW/DPOZG2y8hHme",
+  "phoneNumber": "11111111111",
+  "roles": [
+    "USER"
+  ],
+  "status": true,
+  "userName": "linhtest1"
+},{
+  "_id": {
+    "$oid": "624fabc69628d47147b50dd6"
+  },
+  "address": "Go vap1, hcm",
+  "email": "test1@gmail1.com",
+  "name": "t53",
+  "password": "fV8G3g4M7OgyajhE/BcbHL69JAZfDlU5+ihrxO5wBi0=",
+  "phoneNumber": "11111111111",
+  "role": "ADMIN1",
+  "roles": [
+    "USER",
+    "ADMIN"
+  ],
+  "status": true,
+  "userName": "linhtest12"
+},{
+  "_id": {
+    "$oid": "624fbcedaa64c4797fca8259"
+  },
+  "address": "Go vap1, hcm",
+  "email": "test1@gmail1.com",
+  "name": "t53",
+  "password": "OJ/d3JOyofWxLdie/CdteBlyOPtEQeprlgno6Uzk6Pc=",
+  "phoneNumber": "11111111111",
+  "roles": [
+    "USER",
+    "ADMIN"
+  ],
+  "status": true,
+  "userName": "linhtest12"
+},{
+  "_id": {
+    "$oid": "624fd4f3aa64c4797fca8266"
+  },
+  "address": "Go vap1, hcm",
+  "email": "test1@gmail1.com",
+  "name": "t53",
+  "password": "Do22EL0FQJNhKPwanbdHRIqnMysYmf2OMMJdFPsSBdM=",
+  "phoneNumber": "11111111111",
+  "roles": [
+    "USER"
+  ],
+  "status": true,
+  "userName": "linh0"
+},{
+  "_id": {
+    "$oid": "624fdd351950bf6c709445d4"
+  },
+  "address": "Go vap1, hcm",
+  "email": "test2@gmail.com",
+  "name": "t53",
+  "password": "+tsS+ENSQcLXBDUQN8RYknDB9Iu9rik/5c4h7saLQiw=",
+  "phoneNumber": "11111111111",
+  "roles": [
+    "USER"
+  ],
+  "status": true,
+  "userName": "linh1"
+},{
+  "_id": {
+    "$oid": "624fdfde1950bf6c709445d7"
+  },
+  "password": "dQNjUIMorJb8Ubj2+wVGYp6eAeYkdekqAcnYp+aRq5w=",
+  "roles": [
+    "ADMIN"
+  ],
+  "status": true,
+  "userName": "admin"
+},{
+  "_id": {
+    "$oid": "624ffb756ad6787062128432"
+  },
+  "address": "Go vap1, hcm",
+  "email": "test2@gmail.com",
+  "name": "t53",
+  "password": "fV8G3g4M7OgyajhE/BcbHL69JAZfDlU5+ihrxO5wBi0=",
+  "phoneNumber": "11111111111",
+  "roles": [
+    "USER",
+    "ADMIN"
+  ],
+  "status": true,
+  "userName": "linhvippro"
+},{
+  "_id": {
+    "$oid": "62550191e8a7d9442b593bf1"
+  },
+  "address": "G1231, hcm",
+  "email": "l23gmail.com.com",
+  "name": "t123h1",
+  "password": "fV8G3g4M7OgyajhE/BcbHL69JAZfDlU5+ihrxO5wBi0=",
+  "phoneNumber": "11111111111",
+  "roles": [
+    "ADMIN",
+    "USER"
+  ],
+  "status": true
+},{
+  "_id": {
+    "$oid": "62563bc2c3de1d61de941ce7"
+  },
+  "address": "G1231, hcm",
+  "email": "l23gmail.com.com",
+  "name": "t123h12",
+  "password": "YNQb28kkMX2lH44kFb8uKiRZv6Udq4SX2XbdFIaKOjI=",
+  "phoneNumber": "11111111111",
+  "roles": [
+    "USER"
+  ],
+  "status": false,
+  "userName": "xnot"
+},{
+  "_id": {
+    "$oid": "62577ea9d84fb46687a161a4"
+  },
+  "address": "Go vap2, hcm",
+  "email": "test@gmail.com",
+  "name": "t53",
+  "password": "fV8G3g4M7OgyajhE/BcbHL69JAZfDlU5+ihrxO5wBi0=",
+  "phoneNumber": "11111111111",
+  "roles": [
+    "ADMIN"
+  ],
+  "status": true,
+  "userName": "linhvippro1"
+},{
+  "_id": {
+    "$oid": "6257a116a2fb886c371d7184"
+  },
+  "address": "Go vap2, hcm",
+  "email": "test@gmail.com",
+  "name": "t53",
+  "password": "fV8G3g4M7OgyajhE/BcbHL69JAZfDlU5+ihrxO5wBi0=",
+  "phoneNumber": "11111111111",
+  "roles": [
+    "ADMIN"
+  ],
+  "status": true,
+  "userName": "linhvippro12"
+},{
+  "_id": {
+    "$oid": "6257fa78856db41419238a78"
+  },
+  "address": "Go vap2, hcm",
+  "email": "test@gmail.com",
+  "name": "t53",
+  "password": "fV8G3g4M7OgyajhE/BcbHL69JAZfDlU5+ihrxO5wBi0=",
+  "phoneNumber": "11111111111",
+  "roles": [
+    "ADMIN"
+  ],
+  "status": true,
+  "userName": "linhvip"
+},{
+  "_id": {
+    "$oid": "6258d227ba59470295d3d3ce"
+  },
+  "address": "aa",
+  "email": "aaaaa",
+  "name": "aaa",
+  "password": "U4gf9z4kq0cQ7Yyf9MWgW6Uk+lsZD/riI0dK9+dIWAw=",
+  "phoneNumber": "012312312",
+  "roles": [
+    "USER",
+    "ADMIN"
+  ],
+  "status": true
+},{
+  "_id": {
+    "$oid": "6258d29a02604d69f5150b34"
+  },
+  "address": "aa",
+  "email": "aaaaa",
+  "name": "aaa",
+  "password": "U4gf9z4kq0cQ7Yyf9MWgW6Uk+lsZD/riI0dK9+dIWAw=",
+  "phoneNumber": "012312312",
+  "roles": [
+    "ADMIN",
+    "USER"
+  ],
+  "status": true
+},{
+  "_id": {
+    "$oid": "6258d2aad3b44f5da37adede"
+  },
+  "address": "aa",
+  "email": "aaaaa",
+  "name": "aaa",
+  "password": "U4gf9z4kq0cQ7Yyf9MWgW6Uk+lsZD/riI0dK9+dIWAw=",
+  "phoneNumber": "012312312",
+  "roles": [
+    "ADMIN",
+    "USER"
+  ],
+  "status": true
+},{
+  "_id": {
+    "$oid": "6258d369704ec01d1e1058e4"
+  },
+  "address": "aa",
+  "email": "aaaaa",
+  "name": "aaa",
+  "password": "U4gf9z4kq0cQ7Yyf9MWgW6Uk+lsZD/riI0dK9+dIWAw=",
+  "phoneNumber": "012312312",
+  "roles": [
+    "USER",
+    "ADMIN"
+  ],
+  "status": true
+},{
+  "_id": {
+    "$oid": "6258d3912dfdfb49da69a536"
+  },
+  "address": "aa",
+  "email": "aaaaa",
+  "name": "aaa",
+  "password": "U4gf9z4kq0cQ7Yyf9MWgW6Uk+lsZD/riI0dK9+dIWAw=",
+  "phoneNumber": "012312312",
+  "roles": [
+    "USER",
+    "ADMIN"
+  ],
+  "status": true
+},{
+  "_id": {
+    "$oid": "6258d3cafa0a3470f623ecb7"
+  },
+  "address": "aa",
+  "email": "aaaaa",
+  "name": "aaa",
+  "password": "U4gf9z4kq0cQ7Yyf9MWgW6Uk+lsZD/riI0dK9+dIWAw=",
+  "phoneNumber": "012312312",
+  "roles": [
+    "USER",
+    "ADMIN"
+  ],
+  "status": true
+},{
+  "_id": {
+    "$oid": "6258d3f577f662169a79ebcd"
+  },
+  "address": "aa",
+  "email": "aaaaa",
+  "name": "aaa",
+  "password": "U4gf9z4kq0cQ7Yyf9MWgW6Uk+lsZD/riI0dK9+dIWAw=",
+  "phoneNumber": "012312312",
+  "roles": [
+    "USER",
+    "ADMIN"
+  ],
+  "status": true,
+  "userName": "aaaa"
+},{
+  "_id": {
+    "$oid": "6258d41bdd98705beab3b37f"
+  },
+  "address": "aa",
+  "email": "aaaaa",
+  "name": "aaa",
+  "password": "U4gf9z4kq0cQ7Yyf9MWgW6Uk+lsZD/riI0dK9+dIWAw=",
+  "phoneNumber": "012312312",
+  "roles": [
+    "ADMIN",
+    "USER"
+  ],
+  "status": true,
+  "userName": "aaaa"
+},{
+  "_id": {
+    "$oid": "6258d4333610b0258743796f"
+  },
+  "address": "aa",
+  "email": "aaaaa",
+  "name": "aaa",
+  "password": "U4gf9z4kq0cQ7Yyf9MWgW6Uk+lsZD/riI0dK9+dIWAw=",
+  "phoneNumber": "012312312",
+  "roles": [
+    "USER",
+    "ADMIN"
+  ],
+  "status": true,
+  "userName": "linhvippro"
+},{
+  "_id": {
+    "$oid": "6258d56d4e2a720a6dfe24be"
+  },
+  "address": "aa",
+  "email": "aaaaa",
+  "name": "aaa",
+  "password": "U4gf9z4kq0cQ7Yyf9MWgW6Uk+lsZD/riI0dK9+dIWAw=",
+  "phoneNumber": "012312312",
+  "roles": [
+    "ADMIN",
+    "USER"
+  ],
+  "status": true,
+  "userName": "linhvippro"
+},{
+  "_id": {
+    "$oid": "6258d5da1814ad614d0693e8"
+  },
+  "address": "aa",
+  "email": "aaaaa",
+  "name": "aaa",
+  "password": "U4gf9z4kq0cQ7Yyf9MWgW6Uk+lsZD/riI0dK9+dIWAw=",
+  "phoneNumber": "012312312",
+  "roles": [
+    "ADMIN",
+    "USER"
+  ],
+  "status": true,
+  "userName": "linhvippro"
+},{
+  "_id": {
+    "$oid": "6258d5f1ef029e233138c910"
+  },
+  "address": "aa",
+  "email": "aaaaa",
+  "name": "aaa",
+  "password": "U4gf9z4kq0cQ7Yyf9MWgW6Uk+lsZD/riI0dK9+dIWAw=",
+  "phoneNumber": "012312312",
+  "roles": [
+    "USER",
+    "ADMIN"
+  ],
+  "status": true,
+  "userName": "linhvippro"
+},{
+  "_id": {
+    "$oid": "6258d643947890322badd619"
+  },
+  "address": "aa",
+  "email": "aaaaa",
+  "name": "aaa",
+  "password": "U4gf9z4kq0cQ7Yyf9MWgW6Uk+lsZD/riI0dK9+dIWAw=",
+  "phoneNumber": "012312312",
+  "roles": [
+    "USER",
+    "ADMIN"
+  ],
+  "status": true,
+  "userName": "linhvippro"
+},{
+  "_id": {
+    "$oid": "6258d79691478727bcaecb60"
+  },
+  "address": "aa",
+  "email": "aaaaa",
+  "name": "aaa",
+  "password": "U4gf9z4kq0cQ7Yyf9MWgW6Uk+lsZD/riI0dK9+dIWAw=",
+  "phoneNumber": "012312312",
+  "roles": [
+    "USER",
+    "ADMIN"
+  ],
+  "status": true,
+  "userName": "linhvippro"
+},{
+  "_id": {
+    "$oid": "6258d7d5638d295f3138d370"
+  },
+  "address": "aa",
+  "email": "aaaaa",
+  "name": "aaa",
+  "password": "U4gf9z4kq0cQ7Yyf9MWgW6Uk+lsZD/riI0dK9+dIWAw=",
+  "phoneNumber": "012312312",
+  "roles": [
+    "USER",
+    "ADMIN"
+  ],
+  "status": true,
+  "userName": "linhvippro"
+},{
+  "_id": {
+    "$oid": "6258d842b7e7e55589f3a659"
+  },
+  "address": "aa",
+  "email": "aaaaa",
+  "name": "aaa",
+  "password": "U4gf9z4kq0cQ7Yyf9MWgW6Uk+lsZD/riI0dK9+dIWAw=",
+  "phoneNumber": "012312312",
+  "roles": [
+    "ADMIN",
+    "USER"
+  ],
+  "status": true,
+  "userName": "linhvippro"
+},{
+  "_id": {
+    "$oid": "6258d8c084b77e1d1f8128d0"
+  },
+  "address": "aa",
+  "email": "aaaaa",
+  "name": "aaa",
+  "password": "U4gf9z4kq0cQ7Yyf9MWgW6Uk+lsZD/riI0dK9+dIWAw=",
+  "phoneNumber": "012312312",
+  "roles": [
+    "USER",
+    "ADMIN"
+  ],
+  "status": true,
+  "userName": "linhvippro"
+},{
+  "_id": {
+    "$oid": "6258d8d58cce53682fbd466b"
+  },
+  "address": "aa",
+  "email": "aaaaa",
+  "name": "aaa",
+  "password": "U4gf9z4kq0cQ7Yyf9MWgW6Uk+lsZD/riI0dK9+dIWAw=",
+  "phoneNumber": "012312312",
+  "roles": [
+    "USER",
+    "ADMIN"
+  ],
+  "status": true,
+  "userName": "linhvippro"
+},{
+  "_id": {
+    "$oid": "6258d975aee27c3e5d4725f4"
+  },
+  "address": "aa",
+  "email": "aaaaa",
+  "name": "aaa",
+  "password": "U4gf9z4kq0cQ7Yyf9MWgW6Uk+lsZD/riI0dK9+dIWAw=",
+  "phoneNumber": "012312312",
+  "roles": [
+    "USER",
+    "ADMIN"
+  ],
+  "status": true,
+  "userName": "linhvippro"
+}]

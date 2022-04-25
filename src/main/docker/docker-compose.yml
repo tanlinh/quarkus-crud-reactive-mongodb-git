@@ -1,4 +1,8 @@
 version: "3.7"
+networks:
+  quarkus-mongo:
+    external: true
+
 services:
 
   mongodb:
@@ -11,7 +15,8 @@ services:
     ports:
       - "27017:27017"
     restart: always
-
+    networks:
+      - quarkus-mongo
   app:
     image: quarkus
     container_name: quarkus
@@ -21,7 +26,8 @@ services:
       MONGO_INITDB_DATABASE: management
     depends_on:
       - mongodb
-
+    networks:
+      - quarkus-mongo
 
 
 

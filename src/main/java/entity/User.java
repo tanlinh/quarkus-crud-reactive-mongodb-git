@@ -23,8 +23,7 @@ public class User extends ReactivePanacheMongoEntity {
     private String password;
     private Set<ERole> roles;
 
-    public User() {
-    }
+    private String fileUpload;
 
 }
 

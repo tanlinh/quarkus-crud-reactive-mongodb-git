@@ -47,6 +47,7 @@ public class UserServiceImpl implements UserService {
         user.setPhoneNumber(userDTO.getPhoneNumber());
         user.setStatus(true);
         user.setUserName(userDTO.getUserName());
+        user.setFileUpload(userDTO.getFile());
         Set<ERole> groups = new HashSet<>();
         for (ERole role : userDTO.getRoles()) {
             if (role.equals(ERole.ADMIN))

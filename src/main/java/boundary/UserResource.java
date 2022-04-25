@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import repository.UserRepository;
 import service.ExcelService;
+import service.FileUploadService;
 import serviceimpl.UserServiceImpl;
 
 import javax.annotation.security.RolesAllowed;
@@ -34,17 +35,19 @@ import java.util.Set;
 @RolesAllowed("ADMIN")
 @Path("/user")
 public class UserResource {
-    private static final String FILE_PATH = "D:\\excel-file.xls";
     private static final Logger LOGGER = LoggerFactory.getLogger(UserResource.class);
-
-    @Inject
-    ExcelService excelService;
 
     @Inject
     UserServiceImpl userService;
 
     @Inject
     UserRepository userRepository;
+
+    @Inject
+    ExcelService excelService;
+
+    @Inject
+    FileUploadService uploadService;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -126,12 +129,12 @@ public class UserResource {
     @Path("/upload-file")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.TEXT_PLAIN)
-    public Response sendMultipartUpLoadFile(@MultipartForm MultipartFormDataInput data) {
-        return Response.ok().build();
+    public Response sendMultipartUpLoadFile(@MultipartForm MultipartFormDataInput input) {
+       return Response.ok().entity(uploadService.uploadFile(input)).build();
     }
 
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces("application/vnd.ms-excel")
     @Path("/download-file")
     public Response downloadFileExcel() {
         LOGGER.debug("Check download file excel of list User");
