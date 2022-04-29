@@ -1,7 +1,6 @@
 package service;
 
 import entity.User;
-import io.smallrye.mutiny.Multi;
 import repository.UserRepository;
 import serviceimpl.UserServiceImpl;
 

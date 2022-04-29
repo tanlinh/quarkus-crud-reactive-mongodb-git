@@ -56,7 +56,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.18</version>
+            <version>1.18.24</version>
         </dependency>
         <dependency>
             <groupId>io.rest-assured</groupId>
@@ -103,11 +103,42 @@
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
-            <version>4.1.2</version>
+            <version>5.2.2</version>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-oidc</artifactId>
+            <artifactId>quarkus-kubernetes</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-container-image-jib</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-rest-client-reactive-jackson</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-smallrye-reactive-messaging-kafka</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>1.4.2.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-processor</artifactId>
+            <version>1.4.2.Final</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-minikube</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-kubernetes-client</artifactId>
         </dependency>
     </dependencies>
     <build>

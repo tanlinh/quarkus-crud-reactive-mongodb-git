@@ -23,4 +23,5 @@ public class UserDTO {
     private String name;
     private Set<Address> addresses;
     private String file;
+    private String testMapper;
 }

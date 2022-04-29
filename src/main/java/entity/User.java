@@ -2,9 +2,6 @@ package entity;
 
 import dto.enumm.ERole;
 import io.quarkus.mongodb.panache.reactive.ReactivePanacheMongoEntity;
-import io.quarkus.security.jpa.Password;
-import io.quarkus.security.jpa.Roles;
-import io.quarkus.security.jpa.Username;
 import lombok.Data;
 
 import java.util.Set;

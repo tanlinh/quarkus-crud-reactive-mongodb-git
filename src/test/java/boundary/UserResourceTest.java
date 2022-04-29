@@ -152,14 +152,6 @@ public class UserResourceTest {
 
     @Test
     @TestSecurity(user = "linhvippro", roles = "ADMIN")
-    void getAll() {
-        Multi<User> userMulti = userResource.getAllUser();
-        AssertSubscriber<User> subscriber = userMulti.subscribe().withSubscriber(AssertSubscriber.create());
-        subscriber.onComplete();
-    }
-
-    @Test
-    @TestSecurity(user = "linhvippro", roles = "ADMIN")
     void delete() {
         Uni<Boolean> booleanUni = userResource.deleteAlways("6258d29a02604d69f5150b34");
         UniAssertSubscriber<Boolean> subscriber = booleanUni

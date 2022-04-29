@@ -9,17 +9,22 @@ import io.quarkus.panache.common.Page;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 import lombok.extern.slf4j.Slf4j;
+import mapper.UserMapper;
 import org.bson.types.ObjectId;
+import org.eclipse.microprofile.reactive.messaging.Channel;
+import org.eclipse.microprofile.reactive.messaging.Emitter;
 import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import processor.UserProcessor;
 import repository.UserRepository;
 import service.ExcelService;
 import service.FileUploadService;
-import serviceimpl.UserServiceImpl;
+import service.UserService;
 
 import javax.annotation.security.RolesAllowed;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.ws.rs.*;
@@ -32,13 +37,14 @@ import java.util.List;
 import java.util.Set;
 
 @Slf4j
-@RolesAllowed("ADMIN")
+//@RolesAllowed("ADMIN")
 @Path("/user")
+@ApplicationScoped
 public class UserResource {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserResource.class);
 
     @Inject
-    UserServiceImpl userService;
+    UserService userService;
 
     @Inject
     UserRepository userRepository;
@@ -49,10 +55,26 @@ public class UserResource {
     @Inject
     FileUploadService uploadService;
 
+    @Inject
+    UserProcessor userProcessor;
+
+    @Inject
+    UserMapper userMapper;
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Multi<User> getAllUser() {
-        return User.streamAll();
+    public Multi<UserDTO> getAllUser() {
+        return User.streamAll().map(item -> userMapper.toDTO((User) item));
+    }
+
+    @Path("/one")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public UserDTO getUser() {
+        UserDTO userDTO = new UserDTO();
+        userDTO.setUserName("asdsadasd");
+        userDTO.setAddress("asdassa");
+        return userDTO;
     }
 
     @POST
@@ -130,7 +152,7 @@ public class UserResource {
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.TEXT_PLAIN)
     public Response sendMultipartUpLoadFile(@MultipartForm MultipartFormDataInput input) {
-       return Response.ok().entity(uploadService.uploadFile(input)).build();
+        return Response.ok().entity(uploadService.uploadFile(input)).build();
     }
 
     @GET
@@ -142,4 +164,22 @@ public class UserResource {
         ByteArrayInputStream file = excelService.load();
         return Response.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename).entity(file).build();
     }
+
+    @Inject
+    @Channel("user-out")
+    Emitter<User> userEmitter;
+
+
+    @Path("/kafka")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response userKafka(User user) {
+        user.setName("asdasdsa");
+        user = userProcessor.userProcessor(user);
+        userEmitter.send(user);
+        return Response.ok().build();
+    }
+
+
 }
