@@ -1,0 +1,417 @@
+{
+	"info": {
+		"_postman_id": "cb9769d1-3188-4c1f-a603-51cdbb0d63e9",
+		"name": "user",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "getall",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJraWQiOiIvcHJpdmF0ZWtleS5wZW0iLCJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJsaW5odmlwcHJvIiwiaWF0IjoxNjQ5NDEwMDg2LCJncm91cHMiOlsiQURNSU4iLCJVU0VSIl0sImV4cCI6MTY0OTQxMDM4NiwianRpIjoiZWI4ZjI2NTktYzNiNy00OTY2LWIxN2QtMjc2ZTA4NTQyNjQ1In0.EwxWEYsYxiHBOxkuDzG7S2-xdgJe7PArTlenR_KcrasRQA_m5W76fomdjQ9dBrCb84K0ZghtkGfA-KA837A1Ad8qX1lEGpIQkO8ax4UHCa37YfogslhFUE9C6gjwb9-Ayzb0WSKGPFSTOWq_tz3dOw3PJKeRUGlL-LQOp8p8H2gP-IzqFF2meHaoHHkqet-8l73M8DekLa_Swu2fCDgi5r51oqVK0TSxNoGgBYb02X6M_b78TKA97-xuzGYs9y1Wd7y2bANghdicCCdAZgAnK6Q1kt0M77UK-Q6_Zn7rSLKAziMJJKrB3KPFpJPS-dIvMGhVyIuRPQh1jVnhElHTAA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJraWQiOiIvcHJpdmF0ZWtleS5wZW0iLCJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJsaW5oMSIsImlhdCI6MTY0OTMxNjQwMywiZ3JvdXBzIjpbIlVTRVIiXSwiZXhwIjoxNjQ5MzE2NzAzLCJqdGkiOiI1OWMyOGQxNi1hY2ZlLTQ1MzYtYjkyYS1lNDBjM2Y3YjNjOGIifQ.ppnWapTYL-m5gcYgmwGb72cqYJw0gbVfCZAMPEy_YXPCmw12yFFihbHSm3Ivze4x2yH-q7fVYs4_ZSYoM1xgsj0CNxe8YPfdjjOSZlUsdvULxVk3zDlWhmlf8aUV3CCHRLNJpmXuJ-YFy30x0mLyenBW9uTVmZ-JRA9hpYpDRpYXEh9dVpRqWgWIUMFglP50rkC55LtPKFHnzCKyGUd1QwJki8Pzu9O8uLYLeipSt1T2ez6U6M-vaIbUabG0hs4cxGcnADb0y3mrxVzHCeMK3yoxi29s6kt7MxV10Yx0DjYF7rKQZZpHL_tuvGB4blweIVrUDa2l2Pyqu9dBTE0gOA",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "upload file",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "roles",
+						"value": "USER",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"province\":\"HCM\",\r\n    \"district\":\"Thu Duc\",\r\n    \"town\":\"Quang Trung\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update user",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJraWQiOiIvcHJpdmF0ZWtleS5wZW0iLCJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJsaW5oMSIsImlhdCI6MTY0OTMxNjQwMywiZ3JvdXBzIjpbIlVTRVIiXSwiZXhwIjoxNjQ5MzE2NzAzLCJqdGkiOiI1OWMyOGQxNi1hY2ZlLTQ1MzYtYjkyYS1lNDBjM2Y3YjNjOGIifQ.ppnWapTYL-m5gcYgmwGb72cqYJw0gbVfCZAMPEy_YXPCmw12yFFihbHSm3Ivze4x2yH-q7fVYs4_ZSYoM1xgsj0CNxe8YPfdjjOSZlUsdvULxVk3zDlWhmlf8aUV3CCHRLNJpmXuJ-YFy30x0mLyenBW9uTVmZ-JRA9hpYpDRpYXEh9dVpRqWgWIUMFglP50rkC55LtPKFHnzCKyGUd1QwJki8Pzu9O8uLYLeipSt1T2ez6U6M-vaIbUabG0hs4cxGcnADb0y3mrxVzHCeMK3yoxi29s6kt7MxV10Yx0DjYF7rKQZZpHL_tuvGB4blweIVrUDa2l2Pyqu9dBTE0gOA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"t123h1\",\r\n    \"email\": \"l23gmail.com.com\",\r\n    \"address\": \"G1231, hcm\",\r\n    \"phoneNumber\":\"11111111111\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/update/624d5b1f6b7e7869ef7e7e21",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"update",
+						"624d5b1f6b7e7869ef7e7e21"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update status user",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"2222\",\r\n    \"email\": \"3333@gmail.com\",\r\n    \"address\": \"333333333\",\r\n    \"phoneNumber\":\"3333333333333\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/delete/624d3613f3d2a9268b791856",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"delete",
+						"624d3613f3d2a9268b791856"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete user",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/user/624d3613f3d2a9268b791856",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"624d3613f3d2a9268b791856"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "search by name and email",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJraWQiOiIvcHJpdmF0ZWtleS5wZW0iLCJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJsaW5odmlwcHJvMSIsImlhdCI6MTc5MjU2MTUwMiwiZ3JvdXBzIjpbIkFETUlOIl0sImV4cCI6MTc5MjU2MTgwMiwianRpIjoiNDkyOGZhM2MtZTdmNi00NjRjLWI5ZmQtNjE4MjIzNTI2NzNiIn0.EUpnYn8TjalJkwjfdc9msrqDsU8XgEsAU0ZNd-CAzi7JL9SAPKIyj3XgM-fa9xLg6RCTIttC58dhRcvjtZdA0TWAEAagidpojhZhzvHzLUyLicMYziVigLT2vTwxqsPotPskaC3UEM_P_w_1Ec7UdgX0bnLE57-hbQfAspHKcetl-Sl3eGdARYDE5Fo-cv23GqhVGa3HooN-NdeFdOznAZWsKLhoJ7itSqJuh4SmGS9a8pQi97NGB93DHCiwXKeCkQfs9tmJJOimPoZH8f8oGM7_AqwHRTuiIByKL2bOzO4hFLRc7PMRk152VHl_pldL3BVJ0_GxgdRkbZgQ8hCg2g",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[{\r\n  \"name\": \"tanlinh2\",\r\n  \"email\": \"linh@gmail2.com\",\r\n  \"address\": \"Go vap1, hcm\"\r\n}]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/search?name=a&email=aaaA",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"search"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "a"
+						},
+						{
+							"key": "email",
+							"value": "aaaA"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "find embedded with province",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJraWQiOiIvcHJpdmF0ZWtleS5wZW0iLCJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJsaW5odmkiLCJpYXQiOjE2NTA1MDQ4NDMsImdyb3VwcyI6WyJBRE1JTiJdLCJleHAiOjE2NTA1MDUxNDMsImp0aSI6ImZlNTNjYzE1LTRlNDYtNGZlZi1hN2ZhLTUxMTQ5NTdmMDY4ZCJ9.Q-XqMwScghVbX2nuHn_p6-5ENySViVVw4QsdIXrayB1LXh7M22Z68-ZH-WmN1dIJbq8CaM3nnicsMxYFXDCcanbDuv95GJgdbJlnSkLJCXIbOxdBjP_I47FPVTXsJUg_k1Yh5CIPPHXUbIV_V9LclDhinquV5ysA0dnGaHBpSUx6-4kONSu-V3M0qrZhF43xrjNvB6c3ccSQ8pfuwKXyb1pdRM83-tdw35Z2trJY5dBmvBxSovUmSjlK2s5te7DiX-zKsaO37KLvHd_w3iVIwPU2s_XvzaA6Z5WpUcv_5aWFFvX1L6oBsvButn1oGsT8gh67z24l72gHa95QdrJFTw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/user/find-embedded?province=Tphcm",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"find-embedded"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "aaaA",
+							"disabled": true
+						},
+						{
+							"key": "province",
+							"value": "Tphcm"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userName\": \"linhbip\",\r\n    \"password\": \"123456\",\r\n    \"roles\": [\r\n        \"ADMIN\"\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/admin/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"admin",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add user",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"address\": \"Go vap2, hcm\",\r\n    \"email\": \"test@gmail.com\",\r\n    \"name\": \"t53\",\r\n    \"password\": \"123456\",\r\n    \"phoneNumber\": \"11111111111\",\r\n    \"addresses\": [\r\n        {\r\n            \"town\": \"Cai Be4\",\r\n            \"district\": \"Cai Be4\",\r\n            \"province\": \"Tien Giang4\"\r\n        },\r\n        {\r\n            \"town\": \"Le Quang Dinh4\",\r\n            \"district\": \"Binh Thanh4\",\r\n            \"province\": \"Tphcm4\"\r\n        }\r\n    ],\r\n    \"roles\": [\r\n        \"USER\"\r\n    ],\r\n    \"userName\": \"linhvippro12344\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findbyid",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/user/get/627354698c0a6c3dd216b861",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"get",
+						"627354698c0a6c3dd216b861"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update role",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJraWQiOiIvcHJpdmF0ZWtleS5wZW0iLCJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJsaW5odmlwcHJvIiwiaWF0IjoxNjQ5ODI0MDcwLCJncm91cHMiOlsiQURNSU4iLCJVU0VSIl0sImV4cCI6MTY0OTgyNDM3MCwianRpIjoiYWYxNmI3NGUtZDM1Ni00OGIzLWE0NDEtZDNjMzRkYTllOWRiIn0.ZRxzgEE9fkEnDmPRyLokv3lCmVoaNmfnhK-lupBG_INrowc5R3V7Zf_r8UCOnBLxA11FGjywl0TPMJjfbJbbEyvLtcSy_zEqcjGc1gSvCeXdiK1aIwpiG7n2iHerXmYpQLPz5d2kb880KmsaLNry0zlIIvgyWSpQg_KPJY7iMod1zyTGhq_ZkESqZXoUAyJATM-cUusf59sjNsU_ZR0piDctYGgPWKHf1S8c0iHrmd28kv_VD7JNUHWZPv4nFZ-S2t68zKc0KsXCRERjlfXWBwIZDgxnxaCYkHl5xfluz7T9pZ8PFv4tpyABM_rH0PVtQFcWG4C0L3MhCwHRrlTvpA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"roles\": [\r\n        \"USER\"\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/update/62563bc2c3de1d61de941ce7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"update",
+						"62563bc2c3de1d61de941ce7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Kafka",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"yadiaisd\",\r\n    \"price\": 5000\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/kafka",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"kafka"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

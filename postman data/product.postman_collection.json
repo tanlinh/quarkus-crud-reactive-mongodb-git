@@ -1,0 +1,108 @@
+{
+	"info": {
+		"_postman_id": "b00fff8d-333e-4d24-a69a-857d3f7847dd",
+		"name": "product",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "add product",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"productName\": \"rau muong\",\r\n    \"price\": \"15000\",\r\n    \"quantity\": 6\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:7000/product/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"product",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7000/product/get-all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"product",
+						"get-all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findbyproductname",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7000/product/get-product?productName=rau a",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"product",
+						"get-product"
+					],
+					"query": [
+						{
+							"key": "productName",
+							"value": "rau a"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findproductbyuser",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7000/product/product-user/627370b8dac9b51ab84ccc67",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"product",
+						"product-user",
+						"627370b8dac9b51ab84ccc67"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
