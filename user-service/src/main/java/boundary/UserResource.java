@@ -89,7 +89,6 @@ public class UserResource {
     public UserDTO getUser() {
         UserDTO userDTO = new UserDTO();
         userDTO.setUserName("asdsadasd");
-        userDTO.setAddress("asdassa");
         return userDTO;
     }
 

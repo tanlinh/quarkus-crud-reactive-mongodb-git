@@ -14,7 +14,6 @@ public class UserDTO {
 
     private ObjectId id;
     private String email;
-    private String address;
     private String phoneNumber;
     private Boolean status;
 

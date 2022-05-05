@@ -59,7 +59,6 @@ public class UserServiceImpl implements UserService {
         User user = new User();
         user.setAddresses(addressDTOS);
         user.setEmail(userDTO.getEmail());
-        user.setAddress(userDTO.getAddress());
         user.setName(userDTO.getName());
         user.setPhoneNumber(userDTO.getPhoneNumber());
         user.setStatus(true);
@@ -85,7 +84,6 @@ public class UserServiceImpl implements UserService {
             if (updateUser == null)
                 throw new WebApplicationException(Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("User does not exist").build());
             updateUser.setName(userDTO.getName() == null ? updateUser.getName() : userDTO.getName());
-            updateUser.setAddress(userDTO.getAddress() == null ? updateUser.getAddress() : userDTO.getAddress());
             updateUser.setEmail(userDTO.getEmail() == null ? updateUser.getEmail() : userDTO.getEmail());
             updateUser.setPhoneNumber(userDTO.getPhoneNumber() == null ? updateUser.getPhoneNumber() : userDTO.getPhoneNumber());
             updateUser.setPassword(userDTO.getPassword() == null ? updateUser.getPassword() : passwordEncode.encode(userDTO.getPassword()));
