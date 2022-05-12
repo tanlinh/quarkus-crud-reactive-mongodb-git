@@ -6,9 +6,11 @@ import com.product.dto.UserDTO;
 import com.product.entity.Product;
 import com.product.mapper.ProductMapper;
 import com.product.repository.ProductRepository;
+import io.quarkus.security.Authenticated;
 import io.smallrye.mutiny.Uni;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
+import javax.annotation.security.RolesAllowed;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -17,6 +19,8 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 import java.util.stream.Collectors;
 
+//@Authenticated
+@RolesAllowed("ADMIN")
 @Path("/product")
 @ApplicationScoped
 public class ProductResource {

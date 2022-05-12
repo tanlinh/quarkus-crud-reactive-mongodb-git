@@ -2,7 +2,9 @@ package service;
 
 import dto.UserDTO;
 import entity.Address;
+import entity.Order;
 import entity.User;
+import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 
 import javax.ws.rs.core.Response;
@@ -24,5 +26,5 @@ public interface UserService {
 
     List<User> findByProvince(String province);
 
-    Set<Address> findListAddress(String userName);
+    List<Order> findListOrder(String userName);
 }

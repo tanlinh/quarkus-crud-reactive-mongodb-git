@@ -7,6 +7,6 @@ public class UserConsume {
 
     @Incoming("user-in")
     public void userIn(User user) {
-        System.out.printf("data test:  %s ", user.getName());
+        System.out.printf("data test:  %s ", user.getUserName());
     }
 }

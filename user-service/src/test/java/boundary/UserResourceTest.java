@@ -66,7 +66,6 @@ public class UserResourceTest {
     @TestSecurity(user = "test", roles = "ADMIN")
     public void testAdd() {
         UserDTO userDTO = new UserDTO();
-        userDTO.setAddress("aa");
         userDTO.setEmail("aaaaa");
         userDTO.setName("aaa");
         userDTO.setPassword("123");
@@ -89,7 +88,6 @@ public class UserResourceTest {
     @TestSecurity(user = "test", roles = {"ADMIN", "USER"})
     public void testUpdate() {
         UserDTO userDTO = new UserDTO();
-        userDTO.setAddress("aa");
         userDTO.setEmail("aaaaa");
         userDTO.setName("aaa");
         userDTO.setPassword("123");
@@ -164,7 +162,6 @@ public class UserResourceTest {
     @TestSecurity(user = "linhvippro", roles = {"ADMIN", "USER"})
     void updateUser() {
         UserDTO userDTO = new UserDTO();
-        userDTO.setAddress("aa");
         userDTO.setEmail("aaaaa");
         userDTO.setName("aaa");
         userDTO.setPassword("123");

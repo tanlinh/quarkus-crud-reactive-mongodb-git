@@ -4,7 +4,7 @@ import boundary.request.PageRequest;
 import client.ProductClient;
 import dto.ProductDTO;
 import dto.UserDTO;
-import entity.Address;
+import entity.Order;
 import entity.User;
 import io.quarkus.mongodb.panache.PanacheMongoRepositoryBase;
 import io.quarkus.panache.common.Page;
@@ -37,11 +37,10 @@ import javax.ws.rs.core.Response;
 import java.io.ByteArrayInputStream;
 import java.net.URI;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Slf4j
-//@RolesAllowed("ADMIN")
+@RolesAllowed("ADMIN")
 @Path("/user")
 @ApplicationScoped
 public class UserResource {
@@ -68,6 +67,10 @@ public class UserResource {
 
     @Inject
     UserMapper userMapper;
+
+    @Inject
+    @Channel("user-out")
+    Emitter<UserDTO> userEmitter;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -153,11 +156,12 @@ public class UserResource {
         return userService.findByProvince(province);
     }
 
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/find-address")
-    public Set<Address> findListAddress(@QueryParam("userName") String userName) {
-        return userService.findListAddress(userName);
+    @Path("/find-order")
+    public List<Order> findListOrder(@QueryParam("userName") String userName) {
+        return userService.findListOrder(userName);
     }
 
     @GET
@@ -187,16 +191,11 @@ public class UserResource {
         return Response.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename).entity(file).build();
     }
 
-    @Inject
-    @Channel("user-out")
-    Emitter<User> userEmitter;
-
-
     @Path("/kafka")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response userKafka(User user) {
+    public Response userKafka(UserDTO user) {
         user.setName("asdasdsa");
         user = userProcessor.userProcessor(user);
         userEmitter.send(user);

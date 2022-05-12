@@ -3,6 +3,7 @@ package mapper;
 import dto.ProductDTO;
 import entity.Product;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 
 @Mapper(componentModel = "cdi")

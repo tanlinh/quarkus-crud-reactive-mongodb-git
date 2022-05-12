@@ -6,12 +6,15 @@ import dto.ProductDTO;
 import dto.UserDTO;
 import dto.enumm.ERole;
 import entity.Address;
+import entity.Order;
 import entity.Product;
 import entity.User;
+import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 import io.smallrye.mutiny.unchecked.Unchecked;
 import mapper.ProductMapper;
 import org.bson.types.ObjectId;
+import org.eclipse.microprofile.reactive.messaging.Incoming;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import repository.UserRepository;
 import security.PasswordEncode;
@@ -21,6 +24,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -64,8 +68,19 @@ public class UserServiceImpl implements UserService {
         user.setStatus(true);
         user.setUserName(userDTO.getUserName());
         user.setFileUpload(userDTO.getFile());
-        user.setProductList(productList);
         userDTO.setProductList(productDTOS);
+        //set default order
+        List<Order> orderList = new ArrayList<>();
+        Order order = new Order();
+        order.setQuantity(2);
+        order.setTotal(12312.0);
+        order.setStatus("Đã đặt");
+        order.setName("đơn hàng 1");
+        orderList.add(order);
+        productList.stream().forEach(item -> {
+            item.setOrderList(orderList);
+        });
+        user.setProductList(productList);
         Set<ERole> groups = new HashSet<>();
         for (ERole role : userDTO.getRoles()) {
             if (role.equals(ERole.ADMIN))
@@ -92,7 +107,7 @@ public class UserServiceImpl implements UserService {
             }
             updateUser.setAddresses(updateUser.getAddresses() == null ? updateUser.getAddresses() : addressDTOS);
             return updateUser;
-        })).call(updateUser -> updateUser.update()).invoke(i -> System.out.println("ra gi day ta ahuhu: "+ i));
+        })).call(updateUser -> updateUser.update()).invoke(i -> System.out.println("ra gi day ta ahuhu: " + i));
     }
 
     public Uni<User> deleteUser(String id) {
@@ -132,10 +147,22 @@ public class UserServiceImpl implements UserService {
         return users;
     }
 
-    public Set<Address> findListAddress(String userName) {
+    public List<Order> findListOrder(String userName) {
         User user = userRepository.findByUsername(userName);
         if (user == null)
             throw new WebApplicationException(Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Username does not exist").build());
-        return user.getAddresses();
+        List<Order> orderList = new ArrayList<>();
+        user.getProductList().stream().forEach(v -> {
+            v.getOrderList().stream().forEach(order -> {
+                Order order1 = new Order();
+                order1.setName(order.getName());
+                order1.setTotal(order.getTotal());
+                order1.setQuantity(order.getQuantity());
+                orderList.add(order1);
+            });
+        });
+
+        return orderList;
     }
+
 }
