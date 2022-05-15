@@ -13,6 +13,7 @@ import io.smallrye.mutiny.Uni;
 import lombok.extern.slf4j.Slf4j;
 import mapper.UserMapper;
 import org.bson.types.ObjectId;
+import org.eclipse.microprofile.faulttolerance.Fallback;
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.eclipse.microprofile.reactive.messaging.Emitter;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
@@ -36,11 +37,12 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.ByteArrayInputStream;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j
-@RolesAllowed("ADMIN")
+//@RolesAllowed("ADMIN")
 @Path("/user")
 @ApplicationScoped
 public class UserResource {
@@ -205,8 +207,13 @@ public class UserResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/find-product")
+    @Fallback(fallbackMethod = "fallBack")
     public List<ProductDTO> findProductByUser(@QueryParam("productName") String productName) {
         return productClient.getProduct(productName);
     }
 
+
+    private List<ProductDTO> fallBack(String productName) {
+        return new ArrayList<>();
+    }
 }
