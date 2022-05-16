@@ -4,13 +4,14 @@ import com.product.client.UserClient;
 import com.product.dto.ProductDTO;
 import com.product.dto.UserDTO;
 import com.product.entity.Product;
+import com.product.entity.User;
 import com.product.mapper.ProductMapper;
 import com.product.repository.ProductRepository;
-import io.quarkus.security.Authenticated;
 import io.smallrye.mutiny.Uni;
+import lombok.extern.slf4j.Slf4j;
+import org.eclipse.microprofile.reactive.messaging.Incoming;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
-import javax.annotation.security.RolesAllowed;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -20,7 +21,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 //@Authenticated
-@RolesAllowed("ADMIN")
+@Slf4j
 @Path("/product")
 @ApplicationScoped
 public class ProductResource {
@@ -46,7 +47,7 @@ public class ProductResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<ProductDTO> listProductByName(@QueryParam("productName") String productName) {
-       return productRepository.find("productList.productName", productName).list().stream().map(productMapper ::toDTO).collect(Collectors.toList());
+       return productRepository.find("{productName: {'$regex': ?1}}", productName).list().stream().map(productMapper ::toDTO).collect(Collectors.toList());
     }
 
     @Path("/add")
@@ -64,5 +65,10 @@ public class ProductResource {
     public List<ProductDTO> listProductByUser(@PathParam("id") String id) {
         UserDTO userDTO = userClient.findUser(id);
         return userDTO.getProductList();
+    }
+
+    @Incoming("user-in")
+    public void userIn(User user) {
+        System.out.printf("data test:  %s ", user.getUserName());
     }
 }

@@ -10,21 +10,35 @@ services:
     container_name: mongodb
     volumes:
       - /home/barry/mongodb/database:/data/db
-    environment:
-      MONGO_INITDB_DATABASE: management
+#    environment:
+#      MONGO_INITDB_DATABASE: management
     ports:
       - "27017:27017"
     restart: always
     networks:
       - quarkus-mongo
 
-  app:
-    image: quarkus
-    container_name: quarkus
+  user:
+    image: user
+    container_name: user
     ports:
       - "8080:8080"
     environment:
       MONGO_INITDB_DATABASE: management
+    depends_on:
+      - mongodb
+      - zookeeper
+      - kafka
+    networks:
+      - quarkus-mongo
+
+  product:
+    image: product
+    container_name: product
+    ports:
+      - "7000:7000"
+    environment:
+      MONGO_INITDB_DATABASE: product
     depends_on:
       - mongodb
       - zookeeper

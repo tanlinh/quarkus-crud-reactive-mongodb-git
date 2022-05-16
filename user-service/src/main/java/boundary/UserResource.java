@@ -77,15 +77,15 @@ public class UserResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Multi<UserDTO> getAllUser() {
-            return User.streamAll().map(item -> userMapper.toDTO((User) item));
+        return User.streamAll().map(item -> userMapper.toDTO((User) item));
     }
 
     @GET
     @Path("/get/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Uni<User> findUserById(@PathParam("id") String id) {
-        return  User.findById(new ObjectId(id));
-        }
+        return User.findById(new ObjectId(id));
+    }
 
 
     @Path("/one")
@@ -158,12 +158,20 @@ public class UserResource {
         return userService.findByProvince(province);
     }
 
+    // default
+//    @GET
+//    @Produces(MediaType.APPLICATION_JSON)
+//    @Path("/find-order")
+//    public List<Order> findListOrder(@QueryParam("userName") String userName) {
+//        return userService.findListOrder(userName);
+//    }
 
+    //reactive
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/find-order")
-    public List<Order> findListOrder(@QueryParam("userName") String userName) {
-        return userService.findListOrder(userName);
+    @Path("/find-order/{id}")
+    public Uni<List<Order>> findListOrder(@PathParam("id") String id) {
+        return userService.findListOrder(id);
     }
 
     @GET

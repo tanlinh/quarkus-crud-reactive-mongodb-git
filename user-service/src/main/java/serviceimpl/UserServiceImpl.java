@@ -12,6 +12,7 @@ import entity.User;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 import io.smallrye.mutiny.unchecked.Unchecked;
+import lombok.extern.slf4j.Slf4j;
 import mapper.ProductMapper;
 import org.bson.types.ObjectId;
 import org.eclipse.microprofile.reactive.messaging.Incoming;
@@ -24,13 +25,11 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
+@Slf4j
 @RequestScoped
 public class UserServiceImpl implements UserService {
 
@@ -77,14 +76,14 @@ public class UserServiceImpl implements UserService {
         order.setStatus("Đã đặt");
         order.setName("đơn hàng 1");
         orderList.add(order);
-        productList.stream().forEach(item -> {
+        productList.forEach(item -> {
             item.setOrderList(orderList);
         });
         user.setProductList(productList);
         Set<ERole> groups = new HashSet<>();
         for (ERole role : userDTO.getRoles()) {
-            if (role.equals(ERole.ADMIN))
-                throw new WebApplicationException(Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Cannot add user with role admin").build());
+//            if (role.equals(ERole.ADMIN))
+//                throw new WebApplicationException(Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Cannot add user with role admin").build());
             groups.add(role);
         }
         user.setRoles(groups);
@@ -107,7 +106,7 @@ public class UserServiceImpl implements UserService {
             }
             updateUser.setAddresses(updateUser.getAddresses() == null ? updateUser.getAddresses() : addressDTOS);
             return updateUser;
-        })).call(updateUser -> updateUser.update()).invoke(i -> System.out.println("ra gi day ta ahuhu: " + i));
+        })).call(updateUser -> updateUser.update()).invoke(i -> System.out.println(i));
     }
 
     public Uni<User> deleteUser(String id) {
@@ -147,22 +146,41 @@ public class UserServiceImpl implements UserService {
         return users;
     }
 
-    public List<Order> findListOrder(String userName) {
-        User user = userRepository.findByUsername(userName);
-        if (user == null)
-            throw new WebApplicationException(Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Username does not exist").build());
+    public Uni<List<Order>> findListOrder(String id) {
+        User user = userRepository.findByUsername(id);
+        Uni<User> userUni = User.findById(new ObjectId(id));
         List<Order> orderList = new ArrayList<>();
-        user.getProductList().stream().forEach(v -> {
-            v.getOrderList().stream().forEach(order -> {
-                Order order1 = new Order();
-                order1.setName(order.getName());
-                order1.setTotal(order.getTotal());
-                order1.setQuantity(order.getQuantity());
-                orderList.add(order1);
+        return userUni.onItem().ifNotNull().transform(Unchecked.function(item -> {
+//            if (item == null)
+//                throw new WebApplicationException(Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("User does not exist").build());
+            if (item.getProductList() == null)
+                throw new WebApplicationException(Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Product does not exist").build());
+            item.getProductList().forEach(itemProduct -> {
+                if (itemProduct.getOrderList() == null)
+                    throw new WebApplicationException(Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Order list does not exist").build());
+                itemProduct.getOrderList().forEach(itemOrder -> {
+                    Order order = new Order();
+                    order.setName(itemOrder.getName());
+                    order.setTotal(itemOrder.getTotal());
+                    order.setQuantity(itemOrder.getQuantity());
+                    orderList.add(order);
             });
         });
-
         return orderList;
+        }));
+//        if (user == null)
+//            throw new WebApplicationException(Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Username does not exist").build());
+//        List<Order> orderList = new ArrayList<>();
+//        user.getProductList().stream().forEach(v -> {
+//            v.getOrderList().stream().forEach(order -> {
+//                Order order1 = new Order();
+//                order1.setName(order.getName());
+//                order1.setTotal(order.getTotal());
+//                order1.setQuantity(order.getQuantity());
+//                orderList.add(order1);
+//            });
+//        });
+
     }
 
 }
